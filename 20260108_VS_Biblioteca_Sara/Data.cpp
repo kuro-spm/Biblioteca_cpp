@@ -34,7 +34,14 @@ Data Data::sumar_dies(int days)
 
 bool Data::verificarDiaMesAny(int day, int month, int year)
 {
-	return false;
+	if (year < 0 || month < 1 || month > 12) {
+		return false;
+	}
+	int diesPerMes[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	if (month == 2 && esAnyTraspas(year)) {
+		diesPerMes[2] = 29;
+	}
+	return (day >= 1 && day <= diesPerMes[month]);
 }
 
 bool Data::esAnyTraspas(int year)
