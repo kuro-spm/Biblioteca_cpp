@@ -28,7 +28,7 @@ public:
 	bool operator >= (const Data& Data);
 	bool operator > (const Data& Data);
 	//Destructor:
-	~Data();
+	//~Data(); //Només cal si tenim dades dinàmiques
 
 	Data sumar_dies(int days);
 	static bool verificarDiaMesAny(int day, int month, int year);

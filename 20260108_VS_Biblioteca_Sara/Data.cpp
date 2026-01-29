@@ -95,9 +95,9 @@ bool Data::operator>(const Data& Data)
 	return false;
 }
 
-Data::~Data()
-{
-
-}
+//Data::~Data()
+//{
+//	//Només cal si tenim dades dinàmiques
+//}
 
 
