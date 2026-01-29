@@ -3,12 +3,18 @@
 
 ostream& operator<<(ostream& os, Data& data)
 {
-	// TODO: Insertar una instrucción "return" aquí
+	os << (short) data.day << "/" << (short) data.month << "/" << data.year;
+	return os;
 }
 
 Data::Data()
 {
-
+	//Ha d'iniciar-se amb la data actual
+	std::time_t t = std::time(nullptr);
+	std::tm* now = std::localtime(&t);
+	this->day = now->tm_mday;
+	this->month = now->tm_mon + 1; 
+	this->year = now->tm_year + 1900;  
 }
 
 Data::Data(int day, int month, int year)

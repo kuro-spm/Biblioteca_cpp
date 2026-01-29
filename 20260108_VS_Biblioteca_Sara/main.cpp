@@ -1,12 +1,29 @@
 #include "fitxa.h"
+#include "data.h"
 #include <stdio.h>
 #include <iostream>
 #include <string.h>
 
 using namespace std;
 
-// --- MAIN PRINCIPAL ---
 int main(int argc, char** argv) {
+    try {
+
+        Data* d1 = new Data(5, 6, 2000);
+        std::cout << *d1 << std::endl;
+        Data* d2 = new Data();
+        std::cout << *d2 << std::endl;
+
+
+    }
+    catch (const char* missatge) {
+        cout << "Error: " << missatge << endl;
+    }
+    return 0;
+}
+
+// --- MAIN PRINCIPAL ---
+int main_cout(int argc, char** argv) {
     try {
         bool esDeixa = true;
         Fitxa* f1 = new Fitxa("0123456789", "El camino de los reyes", &esDeixa);
