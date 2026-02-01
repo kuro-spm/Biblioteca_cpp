@@ -16,6 +16,16 @@ public:
 	Data();
 	Data(int day, int month, int year);
 
+	// Getters 
+	int getDay();
+	int getMonth();
+	int getYear();
+
+	// Setters 
+	bool setDay(int day);
+	bool setMonth(int month);
+	bool setYear(int year);
+
 	//Constructor de copia
 	Data(const Data& Data);
 	//Operador d'assignacio
