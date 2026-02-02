@@ -7,6 +7,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+    setlocale(LC_ALL, "");
     try {
 
         Data* d1 = new Data(5, 6, 2000);

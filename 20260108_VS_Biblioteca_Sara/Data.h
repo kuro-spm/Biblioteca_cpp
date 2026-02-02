@@ -27,9 +27,9 @@ public:
 	bool setYear(int year);
 
 	//Constructor de copia
-	Data(const Data& Data);
+	//Data(const Data& Data); //No cal mentre no tinguem dades dinamiques
 	//Operador d'assignacio
-	Data& operator = (const Data& Data);
+	//Data& operator = (const Data& Data);//No cal mentre no tinguem dades dinamiques
 	//Operadors de comparacio
 	bool operator == (const Data& Data);
 	bool operator != (const Data& Data);
