@@ -85,6 +85,7 @@ bool Data::setYear(int year)
 /// <returns></returns>
 Data Data::sumar_dies(int days)
 {
+	//TODO: Millorar eficiencia
 	if (days < 0) return *this; //TODO.
 
 	for (int i = 0; i < days; ++i) {
@@ -102,7 +103,7 @@ Data Data::sumar_dies(int days)
 			}
 		}
 	}
-	return *this; // Devolvemos el objeto actual modificado
+	return *this;
 }
 
 bool Data::verificarDiaMesAny(int day, int month, int year)
