@@ -173,11 +173,13 @@ bool Data::operator<(const Data& Data)
 
 bool Data::operator<=(const Data& Data)
 {
-	if (this->year < Data.year)return true;
+	/*if (this->year < Data.year)return true;
 	if (this->month < Data.month)return true;
 	if (this->day < Data.day)return true;
 	if (this->day == Data.day && this->month == Data.month && this->year == this->year)return true;
-	return false;
+	return false;*/
+	return (*this == Data || *this < Data);
+
 }
 
 bool Data::operator>(const Data& Data)
@@ -190,11 +192,12 @@ bool Data::operator>(const Data& Data)
 
 bool Data::operator>=(const Data& Data)
 {
-	if (this->year > Data.year)return true;
+	/*if (this->year > Data.year)return true;
 	if (this->month > Data.month)return true;
 	if (this->day > Data.day)return true;
 	if (this->day == Data.day && this->month == Data.month && this->year == this->year)return true;
-	return false;
+	return false;*/
+	return (*this == Data || *this > Data);
 }
 
 //Data::~Data()
