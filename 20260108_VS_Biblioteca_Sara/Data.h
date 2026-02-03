@@ -41,6 +41,11 @@ public:
 	Data operator++(int); //d++	
 	Data& operator--(); //--d
 	Data operator--(int); //d--
+
+	Data operator+(int x); //d+num	
+	Data operator-(int x); //d-num
+	Data operator+=(int x); //d+num	
+	Data operator-=(int x); //d-num
 	//Destructor:
 	//~Data(); //Només cal si tenim dades dinàmiques
 

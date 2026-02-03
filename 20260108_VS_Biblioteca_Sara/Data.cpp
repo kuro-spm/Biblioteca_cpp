@@ -215,17 +215,39 @@ Data Data::operator++(int) {
 	++(*this);        
 	return copia;      
 }
-// Pre-increment: --d
+// Pre-decrement: --d
 Data& Data::operator--() {
 	*this = sumar_dies(-1);
 	return *this;
 }
 
-// Post-increment: d--
+// Post-decrement: d--
 Data Data::operator--(int) {
 	Data copia(*this); 
 	--(*this);        
 	return copia;      
+}
+
+Data Data::operator+(int x)
+{
+	return Data(this->sumar_dies(x));
+}
+
+Data Data::operator-(int x)
+{
+	return Data(this->sumar_dies(-x));
+}
+
+Data Data::operator+=(int x)
+{
+	*this = this->sumar_dies(x); 
+	return *this;
+}
+
+Data Data::operator-=(int x)
+{
+	*this = this->sumar_dies(-x);
+	return *this;
 }
 
 //Data::~Data()
