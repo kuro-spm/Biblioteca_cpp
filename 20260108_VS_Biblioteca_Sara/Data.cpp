@@ -191,6 +191,8 @@ bool Data::operator>(const Data& Data)
 	return false;
 }
 
+
+
 bool Data::operator>=(const Data& Data)
 {
 	/*if (this->year > Data.year)return true;
@@ -199,6 +201,31 @@ bool Data::operator>=(const Data& Data)
 	if (this->day == Data.day && this->month == Data.month && this->year == this->year)return true;
 	return false;*/
 	return (*this == Data || *this > Data);
+}
+
+// Pre-increment: ++d
+Data& Data::operator++() {
+	*this = sumar_dies(1);
+	return *this;
+}
+
+// Post-increment: d++
+Data Data::operator++(int) {
+	Data copia(*this); 
+	++(*this);        
+	return copia;      
+}
+// Pre-increment: --d
+Data& Data::operator--() {
+	*this = sumar_dies(-1);
+	return *this;
+}
+
+// Post-increment: d--
+Data Data::operator--(int) {
+	Data copia(*this); 
+	--(*this);        
+	return copia;      
 }
 
 //Data::~Data()

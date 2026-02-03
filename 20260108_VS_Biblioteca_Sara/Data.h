@@ -37,6 +37,10 @@ public:
 	bool operator < (const Data& Data);
 	bool operator >= (const Data& Data);
 	bool operator > (const Data& Data);
+	Data& operator++(); //++d
+	Data operator++(int); //d++	
+	Data& operator--(); //--d
+	Data operator--(int); //d--
 	//Destructor:
 	//~Data(); //Només cal si tenim dades dinàmiques
 
