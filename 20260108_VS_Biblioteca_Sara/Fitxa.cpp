@@ -70,6 +70,12 @@ Fitxa::Fitxa(const char* referencia, const char* titol, bool* esDeixa) {
 
 
 }
+Fitxa::Fitxa(const char* referencia, const char* titol, bool* esDeixa, Data* dataCreacio)
+{
+	//TODO
+}
+
+
 //==================CONSTRUCTOR DE COPIA==================
 Fitxa::Fitxa(const Fitxa& fitxa) : titol(NULL), esDeixa(NULL) {
 	setReferencia(fitxa.referencia);
