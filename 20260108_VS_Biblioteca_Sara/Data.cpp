@@ -7,6 +7,8 @@ ostream& operator<<(ostream& os, Data& data)
 	return os;
 }
 
+
+
 Data::Data()
 {
 	//Ha d'iniciar-se amb la data actual
@@ -255,4 +257,7 @@ Data Data::operator-=(int x)
 //	//Només cal si tenim dades dinàmiques
 //}
 
-
+Data operator+(const int& dies, Data& data)
+{
+	return data + dies;
+}

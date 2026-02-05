@@ -37,6 +37,7 @@ public:
 	bool operator < (const Data& Data);
 	bool operator >= (const Data& Data);
 	bool operator > (const Data& Data);
+
 	Data& operator++(); //++d
 	Data operator++(int); //d++	
 	Data& operator--(); //--d
@@ -46,6 +47,7 @@ public:
 	Data operator-(int x); //d-num
 	Data operator+=(int x); //d+num	
 	Data operator-=(int x); //d-num
+
 	//Destructor:
 	//~Data(); //Només cal si tenim dades dinàmiques
 
@@ -57,6 +59,7 @@ public:
 }; //TANCAR CLASSE
 
 ostream& operator << (ostream& os, Data& data);
+Data operator+ (const int& dies, Data& data);
 
 
 #endif
