@@ -7,7 +7,7 @@
 
 //==================CONSTRUCTORS==================
 
-Fitxa::Fitxa() : referencia("REF"), titol(NULL), esDeixa(NULL) {
+Fitxa::Fitxa() : referencia("REF"), titol(NULL), esDeixa(NULL), dataCreacio(NULL) {
 	////Inicialitzar les dades dinàmiques a null
 	//this->titol = NULL;
 	//this->esDeixa = NULL;
@@ -133,9 +133,11 @@ Fitxa::~Fitxa() {
 
 	delete[] titol;
 	delete esDeixa;
+	delete dataCreacio;
 	//Per si el programador invoca el destructor per netejar l'objecte:
 	titol = NULL;
 	esDeixa = NULL;
+	dataCreacio = NULL;
 }
 
 
@@ -216,6 +218,15 @@ void Fitxa::visualitzar() {
 	else {
 		std::cout << "No" << std::endl;
 	}
+	std::cout << "  Data d'alta: "<< this->dataAlta << std::endl;;;
+	std::cout << "  Data creació: ";
+	if (this->dataCreacio == NULL) {
+		std::cout << "?" << std::endl;;
+	}
+	else {
+		std::cout << this->dataCreacio << std::endl;;
+	}
+
 
 }
 

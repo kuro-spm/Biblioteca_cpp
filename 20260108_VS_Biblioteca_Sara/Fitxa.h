@@ -4,6 +4,7 @@
 #define REF_LEN 10
 
 #include <iostream>
+#include "Data.h"
 using namespace std;
 
 #pragma once
@@ -16,6 +17,8 @@ private: //Per defecte ja és private. No caldria.
 	char referencia[REF_LEN + 1];
 	char* titol;
 	bool* esDeixa;
+	Data dataAlta;
+	Data* dataCreacio;
 
 
 

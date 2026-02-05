@@ -240,13 +240,13 @@ Data Data::operator-(int x)
 	return Data(this->sumar_dies(-x));
 }
 
-Data Data::operator+=(int x)
+Data &Data::operator+=(int x)
 {
 	*this = this->sumar_dies(x); 
 	return *this;
 }
 
-Data Data::operator-=(int x)
+Data &Data::operator-=(int x)
 {
 	*this = this->sumar_dies(-x);
 	return *this;
