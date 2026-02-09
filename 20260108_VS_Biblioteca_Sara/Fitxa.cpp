@@ -20,11 +20,9 @@ Fitxa::Fitxa() : referencia("REF"), titol(NULL), esDeixa(NULL), dataCreacio(NULL
 }
 
 //Hhem de posar el nom de la classe al principi per indicar que forma part de la classe.
-Fitxa::Fitxa(const char* referencia, const char* titol) {
+Fitxa::Fitxa(const char* referencia, const char* titol): esDeixa(NULL), dataCreacio(NULL) {
 	//Inicialitzar les dades dinàmiques a null
-	this->titol = NULL;
 	this->esDeixa = NULL;
-
 	//Gestio de la referencia
 	if (referencia == NULL || strlen(referencia) != REF_LEN) {
 		throw "La referencia és obligatoria i de llargada REF_LEN";
@@ -72,7 +70,30 @@ Fitxa::Fitxa(const char* referencia, const char* titol, bool* esDeixa) {
 }
 Fitxa::Fitxa(const char* referencia, const char* titol, bool* esDeixa, Data* dataCreacio)
 {
-	//TODO
+	//Inicialitzar les dades dinàmiques a null
+	this->titol = NULL;
+	this->esDeixa = NULL;
+
+	//Gestio de la referencia
+	if (referencia == NULL || strlen(referencia) != REF_LEN) {
+		throw "La referencia és obligatoria i de llargada REF_LEN";
+	}
+	strcpy(this->referencia, referencia);
+
+	//gestio del titol:
+	if (titol == NULL || strlen(titol) == 0) {
+		throw "El títol és obligatori";
+	}
+	//Creem espai pel titol:
+	this->titol = new char[strlen(titol) + 1];
+	if (this->titol == NULL) {
+		throw "no hi ha memoria pel titol de la fitxa";
+	}
+	strcpy(this->titol, titol);
+
+	//Gestio de esDeixa:
+	setEsDeixa(esDeixa);
+	setDataCreacio(dataCreacio);
 }
 
 
@@ -81,6 +102,8 @@ Fitxa::Fitxa(const Fitxa& fitxa) : titol(NULL), esDeixa(NULL) {
 	setReferencia(fitxa.referencia);
 	setTitol(fitxa.titol);
 	setEsDeixa(fitxa.esDeixa);
+	setDataCreacio(fitxa.dataCreacio);
+	this->dataAlta= fitxa.dataAlta;
 }
 
 //==================OPERADORS==================
@@ -198,6 +221,28 @@ void Fitxa::setEsDeixa(const bool* esDeixa) {
 	}
 }
 
+void Fitxa::setDataCreacio(const Data* dataCreacio)
+{
+	if (dataCreacio == NULL) {
+		delete this->dataCreacio  ;
+		this->dataCreacio = NULL;
+	}
+	else {
+		if (this->dataCreacio == NULL) {
+			this->dataCreacio = new Data(*dataCreacio);
+			if (this->esDeixa == NULL) {
+				throw "No s'ha pogut reservar memoria";
+			}
+			*(this->dataCreacio) = *dataCreacio;
+		}
+		else {
+			*(this->dataCreacio) = *dataCreacio;
+		}
+	}
+
+}
+
+
 //==================GETTERS==================
 const char* Fitxa::getReferencia() {
 	return this->referencia;
@@ -208,6 +253,16 @@ const char* Fitxa::getTitol() {
 const bool* Fitxa::getEsDeixa() {
 	return this->esDeixa;
 
+}
+
+const Data* Fitxa::getDataCreacio()
+{
+	return this->dataCreacio;
+}
+
+const Data& Fitxa::getDataAlta()
+{
+	return this->dataAlta;
 }
 
 //==================METODES==================
@@ -230,7 +285,7 @@ void Fitxa::visualitzar() {
 		std::cout << "?" << std::endl;;
 	}
 	else {
-		std::cout << this->dataCreacio << std::endl;;
+		std::cout << *(this->dataCreacio) << std::endl;;
 	}
 
 

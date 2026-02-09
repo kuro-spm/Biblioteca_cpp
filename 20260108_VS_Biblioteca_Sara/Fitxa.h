@@ -27,7 +27,7 @@ public:
 	Fitxa(const char* referencia, const char* titol);
 	Fitxa(const char* referencia, const char* titol, bool* esDeixa);
 	Fitxa(const char* referencia, const char* titol, bool* esDeixa, Data* dataCreacio);
-	//Constructor de copia
+	//Constructor de còpia
 	Fitxa(const Fitxa& fitxa);
 	//Operador d'assignacio
 	Fitxa& operator = (const Fitxa& fitxa);
@@ -50,6 +50,7 @@ public:
 	const char* getTitol();
 	const bool* getEsDeixa();
 	const Data* getDataCreacio();
+	const Data& getDataAlta();
 
 	void visualitzar();
 

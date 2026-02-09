@@ -9,6 +9,26 @@ using namespace std;
 int main(int argc, char** argv) {
     setlocale(LC_ALL, "");
     try {
+        Data* d1 = new Data(5, 6, 2000);
+        bool esDeixa = true;
+
+        Fitxa* f1 = new Fitxa("0123456789", "El camino de los reyes", &esDeixa, d1);
+
+        cout << *f1 << endl;
+
+        f1->visualitzar();
+
+
+    }
+    catch (const char* missatge) {
+        cout << "Error: " << missatge << endl;
+    }
+    return 0;
+}
+
+int main_visualitzarDates(int argc, char** argv) {
+    setlocale(LC_ALL, "");
+    try {
 
         Data* d1 = new Data(5, 6, 2000);
         std::cout << *d1 << std::endl;
