@@ -123,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Biblioteca.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Fitxa.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Biblioteca.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Fitxa.cpp" />
     <ClCompile Include="main.cpp" />

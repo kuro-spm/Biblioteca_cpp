@@ -298,9 +298,7 @@ ostream& operator<<(ostream& os, Fitxa& fitxa)
 	
 	//Farem les classes friends per no haver de cridar els getters.
 	//(Hem posat 	friend ostream& operator<<(ostream& os, Fitxa& fitxa); al fitxer.h)
-	os << "Ref: " << fitxa.referencia << "- Titol: " << fitxa.titol;
+	os << "Ref: " << fitxa.referencia << " - Titol: " << fitxa.titol;
 
-
-	
 	return os;
 }
