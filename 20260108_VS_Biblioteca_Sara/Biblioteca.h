@@ -1,7 +1,6 @@
 #ifndef BIBLIOTECA_H_INCLUDED
 #define BIBLIOTECA_H_INCLUDED
 
-#define REF_LEN 10
 #include "Fitxa.h"
 #include "Data.h"
 
@@ -12,7 +11,7 @@ class Biblioteca
 	friend ostream& operator<<(ostream& os, Biblioteca& biblioteca);
 
 private:
-	char nom[REF_LEN + 1];
+	char *nom;
 	Data dataInauguracio;
 	int capacitat;
 	int qtatFitxes;
@@ -26,7 +25,7 @@ public:
 	Biblioteca(const Biblioteca& biblioteca); //Copia (imprescindible <=> dades dinàmiques)
 
 	//Operadors
-	Biblioteca &operator=(const Biblioteca& b); //Asignació (imprescindible <=> dades dinàmiques)
+	Biblioteca& operator=(const Biblioteca& b); //Asignació (imprescindible <=> dades dinàmiques)
 
 	//Destructor
 	~Biblioteca(); //Destructor (imprescindible <=> dades dinàmiques)
@@ -34,20 +33,26 @@ public:
 	//Getters i setters
 	//Setters
 	void setNom(const char* nom);
-	void setDataInauguracio(const Data* dataInauguracio);
+	void setCapacitat(const int& capacitat);
+	void setDataInauguracio(const Data& dataInauguracio);
 
 	//Getters
 	const char* getNom();
-	const Data* getDataInauguracio();
+	//S'utilitza & per eficiència amb objectes complexos.
+	const Data& getDataInauguracio();
 	const int getCapacitat();
 	const int getQtatFitxes();
-	const Fitxa** getFitxes();
+	const Fitxa& getFitxes();
+	/*const Data&, està retornant un "àlies" a l'objecte original que 
+	ja existeix dins de la biblioteca. És instantani. El const garanteix 
+	que, encara que tinguin accés a l'original, no el puguin modificar.*/
 
 	//Altres mètodes
-	void afegirFitxa(const Fitxa* fitxa);
+	bool afegirFitxa(const Fitxa* fitxa);
 	Fitxa& cercarFitxa(const char* referencia);
 	void eliminarFitxa(const char* referencia);
 	void actualitzarFitxa(const Fitxa* fitxa);
+	Fitxa* extreureFitxa(const char* referencia);
 
 	void visualitzar();
 };
