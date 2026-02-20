@@ -1,4 +1,4 @@
-Biblioteca.cpp
+#Biblioteca.cpp
 Aquest projecte s’ha fet com a part de la assignatura de Programació Estructurada i Modular (PEM) del cicle de Desenvolupament d’Aplicacions Multiplataforma en l’institud Milà i Fontanals d’Igualada, per tal d’aprendre com fer una correcta gestió de classes en C++.
 
 El projecte consta de les classes Fitxa, Data i Biblioteca.
