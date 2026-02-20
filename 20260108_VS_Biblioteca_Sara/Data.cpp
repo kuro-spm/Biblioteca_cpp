@@ -205,6 +205,8 @@ bool Data::operator>=(const Data& Data)
 	return (*this == Data || *this > Data);
 }
 
+
+
 // Pre-increment: ++d
 Data& Data::operator++() {
 	*this = sumar_dies(1);
@@ -261,3 +263,5 @@ Data operator+(const int& dies, Data& data)
 {
 	return data + dies;
 }
+
+

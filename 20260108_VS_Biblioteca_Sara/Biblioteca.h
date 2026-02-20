@@ -37,12 +37,11 @@ public:
 	void setDataInauguracio(const Data& dataInauguracio);
 
 	//Getters
-	const char* getNom();
-	//S'utilitza & per eficiència amb objectes complexos.
-	const Data& getDataInauguracio();
-	const int getCapacitat();
-	const int getQtatFitxes();
-	const Fitxa& getFitxes();
+	const char* getNom() const;                
+	const Data& getDataInauguracio() const;    
+	int getCapacitat() const;                   
+	int getQtatFitxes() const;                 
+	const Fitxa** getFitxes() const;          
 	/*const Data&, està retornant un "àlies" a l'objecte original que 
 	ja existeix dins de la biblioteca. És instantani. El const garanteix 
 	que, encara que tinguin accés a l'original, no el puguin modificar.*/
@@ -54,7 +53,7 @@ public:
 	void actualitzarFitxa(const Fitxa* fitxa);
 	Fitxa* extreureFitxa(const char* referencia);
 
-	void visualitzar();
+	void visualitzar(ostream& os);
 };
 
 #endif

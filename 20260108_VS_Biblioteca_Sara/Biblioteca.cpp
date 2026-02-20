@@ -8,7 +8,7 @@ ostream& operator<<(ostream& os, Biblioteca& biblioteca)
 
 
 Biblioteca::Biblioteca(const char* nom, const int& capacitat, const Data& dataInauguracio) :
-	nom(NULL), dataInauguracio(dataInauguracio), capacitat(capacitat), qtatFitxes(0), t(NULL)
+	nom(NULL), dataInauguracio(dataInauguracio), capacitat(0), qtatFitxes(0), t(NULL)
 {
 	//Gestio del nom:
 	if (nom == NULL || strlen(nom) == 0) {
@@ -25,19 +25,37 @@ Biblioteca::Biblioteca(const char* nom, const int& capacitat, const Data& dataIn
 }
 
 //==================CONSTRUCTOR CÒPIA==================
-Biblioteca::Biblioteca(const Biblioteca& biblioteca)
+///El constructor de còpia és imprescindible quan tenim dades dinàmiques, ja que el constructor per defecte faria una còpia superficial (shallow copy) i compartiríem les mateixes adreces de memòria, cosa que podria provocar problemes com la doble alliberació de memòria (double free) o modificacions no desitjades en les dades compartides. Amb el constructor de còpia personalitzat, podem assegurar-nos que cada objecte té la seva pròpia còpia de les dades dinàmiques, evitant aquests problemes i garantint un comportament correcte del programa.
+Biblioteca::Biblioteca(const Biblioteca& biblioteca) :
+	nom(NULL), dataInauguracio(dataInauguracio), capacitat(0), qtatFitxes(0), t(NULL)
 {
+	setNom(biblioteca.nom);
+	setCapacitat(biblioteca.capacitat);
+	//TODO assegurar que si peta, no deixi la biblioteca en un estat inconsistent. Per exemple, si no es pot reservar memòria pel nom, no hauria de continuar intentant copiar les fitxes.
+	for (int i = 0; i < biblioteca.qtatFitxes; i++) {
+		t[i] = new Fitxa(*(biblioteca.t[i]));
+		//afegirFitxa(biblioteca.t[i]);
+	}
+	qtatFitxes = biblioteca.qtatFitxes;
 }
 
 //==================OPERADORS==================
 Biblioteca& Biblioteca::operator=(const Biblioteca& b)
 {
-	// TODO: Insertar una instrucción "return" aquí
+	throw "No es permet l'assignació de biblioteques.";
 }
 
 //==================DESTRUCTOR==================
 Biblioteca::~Biblioteca()
 {
+	delete[] nom;    
+	//Asssumim que les fitxes les gestiona la biblioteca, per tant, hem d'alliberar la memòria de cada fitxa abans d'alliberar el vector de punters a fitxes.
+	for (int i = 0; i < qtatFitxes; i++) {
+		delete t[i];
+	}
+	delete[] t;       
+	nom = NULL;
+	t = NULL;
 }
 
 
@@ -104,30 +122,11 @@ void Biblioteca::setDataInauguracio(const Data& dataInauguracio)
 
 //==================GETTERS==================
 
-const char* Biblioteca::getNom()
-{
-	return nullptr;
-}
-
-const Data& Biblioteca::getDataInauguracio()
-{
-	// TODO: Insertar una instrucción "return" aquí
-}
-
-const int Biblioteca::getCapacitat()
-{
-	// TODO: Insertar una instrucción "return" aquí
-}
-
-const int Biblioteca::getQtatFitxes()
-{
-	return 0;
-}
-
-const Fitxa& Biblioteca::getFitxes()
-{
-	// TODO: Insertar una instrucción "return" aquí
-}
+const char* Biblioteca::getNom() const { return nom; }
+const Data& Biblioteca::getDataInauguracio() const { return dataInauguracio; }
+int Biblioteca::getCapacitat() const { return capacitat; }
+int Biblioteca::getQtatFitxes() const { return qtatFitxes; }
+const Fitxa** Biblioteca::getFitxes() const { return (const Fitxa**)t; }
 
 
 
@@ -156,6 +155,21 @@ Fitxa* Biblioteca::extreureFitxa(const char* referencia)
 	return nullptr;
 }
 
-void Biblioteca::visualitzar()
+void Biblioteca::visualitzar(ostream &os)
 {
+	os << "Nom: " << this->getNom() << std::endl;
+	os << "Data d'inauguració: " << this->dataInauguracio << std::endl;
+	os << "Capacitat: " << this->getCapacitat() << std::endl;
+	os << "Quantitat de fitxes: " << this->getQtatFitxes() << std::endl;
+	if (qtatFitxes > 0) {
+		os << "Fitxes:" << std::endl;
+		for (int i = 0; i < this->qtatFitxes; i++) {
+			os << "\t" << *(this->t[i]) << std::endl;
+		}
+	}
+	else {
+		os << "No hi ha fitxes a la biblioteca." << std::endl;
+	}
+
+	
 }
