@@ -1,7 +1,7 @@
 #include "Data.h"
 #include <time.h>
 
-ostream& operator<<(ostream& os, Data& data)
+ostream& operator<<(ostream& os, const Data& data)
 {
 	os << (short)data.day << "/" << (short)data.month << "/" << data.year;
 	return os;

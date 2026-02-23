@@ -11,7 +11,7 @@ using namespace std;
 class Fitxa
 {
 	//funcio que tindra acces a totes les dades privades, etc.
-	friend ostream& operator<<(ostream& os, Fitxa& fitxa);
+	friend ostream& operator<<(ostream& os, const Fitxa& fitxa);
 
 private: //Per defecte ja és private. No caldria.
 	char referencia[REF_LEN + 1];
@@ -56,7 +56,8 @@ public:
 
 }; //Tancar classe
 
-ostream& operator << (ostream& os, Fitxa& fitxa);
+ostream& operator<<(ostream& os, const Fitxa& fitxa);
+
 #endif
 
 

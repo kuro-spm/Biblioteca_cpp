@@ -8,7 +8,7 @@ using namespace std;
 class Data
 {
 private:
-	friend ostream& operator<<(ostream& os, Data& data);
+	friend ostream& operator<<(ostream& os, const Data& data);
 	char day, month;
 	short year;
 
@@ -58,7 +58,7 @@ public:
 
 }; //TANCAR CLASSE
 
-ostream& operator << (ostream& os, Data& data);
+ostream& operator << (ostream& os, const Data& data);
 Data operator+ (const int& dies, Data& data);
 
 

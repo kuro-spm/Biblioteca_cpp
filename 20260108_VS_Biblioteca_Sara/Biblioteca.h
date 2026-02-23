@@ -8,7 +8,8 @@
 
 class Biblioteca
 {
-	friend ostream& operator<<(ostream& os, Biblioteca& biblioteca);
+	friend ostream& operator<<(ostream& os, const Biblioteca& biblioteca);
+
 
 private:
 	char *nom;
@@ -55,5 +56,7 @@ public:
 
 	void visualitzar(ostream& os);
 };
+
+
 
 #endif

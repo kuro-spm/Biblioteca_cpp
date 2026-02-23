@@ -1,9 +1,18 @@
 #include "Biblioteca.h"
 #include "Data.h"
 
-ostream& operator<<(ostream& os, Biblioteca& biblioteca)
+ostream& operator<<(ostream& os, const Biblioteca& biblioteca)
 {
-	// TODO: Insertar una instrucción "return" aquí
+	os << "Nom: " << biblioteca.getNom() << std::endl;
+	os << "Data d'inauguració: " << biblioteca.getDataInauguracio() << std::endl;
+	os << "Capacitat: " << biblioteca.getCapacitat() << std::endl;
+	os << "Quantitat de fitxes: " << biblioteca.getQtatFitxes() << std::endl;
+	os << "Fitxes:" << std::endl;
+	for (int i = 0; i < biblioteca.getQtatFitxes(); i++) {
+		os << "\t" << *(biblioteca.t[i]) << std::endl;
+	}
+	return os;
+
 }
 
 
@@ -19,9 +28,7 @@ Biblioteca::Biblioteca(const char* nom, const int& capacitat, const Data& dataIn
 
 	//Gestio de la capacitat:
 	setCapacitat(capacitat);
-	this->capacitat = capacitat;
 	//Inicialitzem el vector de fitxes a null
-	this->t = NULL;
 }
 
 //==================CONSTRUCTOR CÒPIA==================
@@ -44,7 +51,7 @@ Biblioteca::Biblioteca(const Biblioteca& biblioteca) :
 
 			t[i] = new Fitxa(*(biblioteca.t[i])); //Cada fitxa és ara de la biblioteca, per tant, hem de crear una nova fitxa a partir de la fitxa original. Això és un procés de còpia profunda (deep copy).
 			//afegirFitxa(biblioteca.t[i]);
-			if(t[i] == NULL) {
+			if (t[i] == NULL) {
 				throw "No hi ha memòria per copiar una fitxa de la biblioteca";
 			}
 		}
@@ -108,15 +115,10 @@ void Biblioteca::setNom(const char* nom)
 
 void Biblioteca::setCapacitat(const int& capacitat)
 {
-	if (capacitat <= 0) {
-		throw "La capacitat de la biblioteca ha de ser positiva";
-	}
-	if (capacitat < this->qtatFitxes) {
-		throw "La capacitat de la biblioteca no pot ser inferior a la quantitat de fitxes que conté";
-	}
-	if (capacitat == capacitat) {
-		return;
-	}
+	if (capacitat <= 0) throw "La capacitat de la biblioteca ha de ser positiva";
+	if (capacitat < this->qtatFitxes) throw "La capacitat no pot ser inferior a les fitxes actuals";
+	if (capacitat == this->capacitat) return;
+
 	//else if (capacitat != this->capacitat) {
 	//Si la capacitat és diferent a l'actual, hem de redimensionar el vector de fitxes.
 	Fitxa** tAux = new Fitxa * [capacitat];
@@ -127,9 +129,8 @@ void Biblioteca::setCapacitat(const int& capacitat)
 	for (int i = 0; i < this->qtatFitxes; i++) {
 		tAux[i] = this->t[i];
 	}
-	//Alliberem el vector anterior
+	//Intercanvi
 	delete[] this->t;
-	//Assignem el nou vector a la biblioteca
 	this->t = tAux;
 	this->capacitat = capacitat;
 
@@ -180,7 +181,7 @@ bool Biblioteca::afegirFitxa(const Fitxa* fitxa)
 		t[j] = t[j - 1];
 	}
 	//Inserim la nova fitxa a la posició correcta
-	t[i] = new Fitxa(*fitxa); //Creem una nova fitxa a partir de la fitxa original per evitar compartir la mateixa adreça de memòria. Això és un procés de còpia profunda (deep copy).
+	t[i] = (Fitxa*) new Fitxa(*fitxa); //Creem una nova fitxa a partir de la fitxa original per evitar compartir la mateixa adreça de memòria. Això és un procés de còpia profunda (deep copy).
 	if (t[i] == NULL) {
 		throw "No hi ha memòria per afegir la nova fitxa a la biblioteca";
 	}
@@ -203,7 +204,7 @@ Fitxa& Biblioteca::cercarFitxa(const char* referencia)
 	while (i < qtatFitxes && strcmp(t[i]->getReferencia(), referencia) < 0) {
 		if (i < qtatFitxes && strcmp(t[i]->getReferencia(), referencia) == 0) {
 			return *(t[i]);
-		}		
+		}
 		i++;
 	}
 	throw "No s'ha trobat cap fitxa amb la referencia indicada";
@@ -211,10 +212,12 @@ Fitxa& Biblioteca::cercarFitxa(const char* referencia)
 
 void Biblioteca::eliminarFitxa(const char* referencia)
 {
+
 }
 
 void Biblioteca::actualitzarFitxa(const Fitxa* fitxa)
 {
+
 }
 
 Fitxa* Biblioteca::extreureFitxa(const char* referencia)

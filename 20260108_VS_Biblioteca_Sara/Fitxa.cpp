@@ -277,7 +277,7 @@ void Fitxa::visualitzar() {
 
 }
 
-ostream& operator<<(ostream& os, Fitxa& fitxa)
+ostream& operator<<(ostream& os, const Fitxa& fitxa)
 {
 	//Això és ineficient
 	//os << "Ref: " << fitxa.getReferencia() << "- Titol: " << fitxa.getTitol();
