@@ -33,20 +33,9 @@ Data::Data(int day, int month, int year)
 
 //==================GETTERS==================
 
-int Data::getDay()
-{
-	return day;
-}
-
-int Data::getMonth()
-{
-	return month;
-}
-
-int Data::getYear()
-{
-	return year;
-}
+int Data::getDay() const { return day; }
+int Data::getMonth() const { return month; }
+int Data::getYear() const { return year; }
 
 //==================SETTERS==================
 

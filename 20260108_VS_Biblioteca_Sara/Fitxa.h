@@ -46,11 +46,11 @@ public:
 	void setEsDeixa(const bool* esDeixa);
 	void setDataCreacio(const Data* dataCreacio);
 
-	const char* getReferencia();
-	const char* getTitol();
-	const bool* getEsDeixa();
-	const Data* getDataCreacio();
-	const Data& getDataAlta();
+	const char* getReferencia() const;
+	const char* getTitol() const;
+	const bool* getEsDeixa() const;
+	const Data* getDataCreacio() const;
+	const Data& getDataAlta() const;
 
 	void visualitzar();
 

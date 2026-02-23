@@ -17,9 +17,9 @@ public:
 	Data(int day, int month, int year);
 
 	// Getters 
-	int getDay();
-	int getMonth();
-	int getYear();
+	int getDay() const;
+	int getMonth() const;
+	int getYear() const;
 
 	// Setters 
 	bool setDay(int day);

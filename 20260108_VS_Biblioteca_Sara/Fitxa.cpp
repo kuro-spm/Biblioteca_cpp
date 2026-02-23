@@ -244,26 +244,12 @@ void Fitxa::setDataCreacio(const Data* dataCreacio)
 
 
 //==================GETTERS==================
-const char* Fitxa::getReferencia() {
-	return this->referencia;
-}
-const char* Fitxa::getTitol() {
-	return this->titol;
-}
-const bool* Fitxa::getEsDeixa() {
-	return this->esDeixa;
+const char* Fitxa::getReferencia() const { return this->referencia; }
+const char* Fitxa::getTitol() const { return this->titol; }
+const bool* Fitxa::getEsDeixa() const { return this->esDeixa; }
+const Data* Fitxa::getDataCreacio() const { return this->dataCreacio; }
+const Data& Fitxa::getDataAlta() const { return this->dataAlta; }
 
-}
-
-const Data* Fitxa::getDataCreacio()
-{
-	return this->dataCreacio;
-}
-
-const Data& Fitxa::getDataAlta()
-{
-	return this->dataAlta;
-}
 
 //==================METODES==================
 void Fitxa::visualitzar() {
