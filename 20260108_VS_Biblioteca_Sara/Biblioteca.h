@@ -4,8 +4,6 @@
 #include "Fitxa.h"
 #include "Data.h"
 
-
-
 class Biblioteca
 {
 	friend ostream& operator<<(ostream& os, const Biblioteca& biblioteca);

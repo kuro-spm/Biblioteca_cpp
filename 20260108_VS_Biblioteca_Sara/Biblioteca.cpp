@@ -174,9 +174,12 @@ bool Biblioteca::afegirFitxa(const Fitxa* fitxa)
 	//Busquem la posició on s'ha d'inserir la nova fitxa per mantenir l'ordre
 	int i = 0;
 	while (i < qtatFitxes && strcmp(t[i]->getReferencia(), fitxa->getReferencia()) < 0) {
+		if (i < qtatFitxes&& strcmp(t[i]->getReferencia(), fitxa->getReferencia()) == 0) {
+			throw "Ja existeix una fitxa amb la mateixa referencia a la biblioteca";
+		}
 		i++;
 	}
-	//Desplacem les fitxes a la dreta per fer espai a la nova fitxa
+	//Desplacem les fitxes a la dreta per fer espai a la nova fitxa --> SEGUR EXAMEN
 	for (int j = qtatFitxes; j > i; j--) {
 		t[j] = t[j - 1];
 	}
@@ -217,12 +220,38 @@ void Biblioteca::eliminarFitxa(const char* referencia)
 
 void Biblioteca::actualitzarFitxa(const Fitxa* fitxa)
 {
+	if (fitxa == NULL) {
+		throw "La fitxa proporcionada és nul·la";
+	}
+	//Busquem la fitxa dins del nostre vector 't' (que és un Fitxa**)
+	// Com que cercarFitxa retorna una Fitxa&, n'obtenim l'adreça amb '&'
+	Fitxa* fitxaDinsBiblioteca = &cercarFitxa(fitxa->getReferencia());
 
+	// 3. Ara que tenim el punter, fem l'assignació.
+	*fitxaDinsBiblioteca = *fitxa;
 }
 
 Fitxa* Biblioteca::extreureFitxa(const char* referencia)
 {
-	return nullptr;
+	if (referencia == NULL || strlen(referencia) == 0) {
+		throw "La referencia de la fitxa a extreure no pot ser NULL o buida";
+	}
+	int i = 0;
+	for (i = 0; i < qtatFitxes && strcmp(t[i]->getReferencia(), referencia) < 0; i++) {
+		if (i < qtatFitxes && strcmp(t[i]->getReferencia(), referencia) == 0) {
+			Fitxa* fitxaExtreta = t[i];
+			//Desplacem les fitxes a la esquerra per omplir l'espai deixat per la fitxa extreta
+			for (int j = i; j < qtatFitxes - 1; j++) {
+				t[j] = t[j + 1];
+			}
+			t[qtatFitxes - 1] = NULL; //Opcional: posar a NULL la última posición del vector después de desplazar las fitxes
+			qtatFitxes--;
+			return fitxaExtreta;
+		}
+		else {
+			return NULL; //Si no se encuentra la fitxa, se devuelve NULL en lugar de lanzar una excepción. Esto es una decisión de diseño que puede variar según las necesidades del programa.
+		}
+	}
 }
 
 void Biblioteca::visualitzar(ostream& os)
