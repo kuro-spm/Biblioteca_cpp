@@ -38,8 +38,8 @@ public:
 	//Getters
 	const char* getNom() const;                
 	const Data& getDataInauguracio() const;    
-	int getCapacitat() const;                   
-	int getQtatFitxes() const;                 
+	const int& getCapacitat() const;                   
+	const int& getQtatFitxes() const;                 
 	const Fitxa** getFitxes() const;          
 	/*const Data&, està retornant un "àlies" a l'objecte original que 
 	ja existeix dins de la biblioteca. És instantani. El const garanteix 
@@ -48,7 +48,6 @@ public:
 	//Altres mètodes
 	bool afegirFitxa(const Fitxa* fitxa);
 	Fitxa& cercarFitxa(const char* referencia);
-	void eliminarFitxa(const char* referencia);
 	void actualitzarFitxa(const Fitxa* fitxa);
 	Fitxa* extreureFitxa(const char* referencia);
 

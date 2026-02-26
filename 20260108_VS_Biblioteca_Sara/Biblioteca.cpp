@@ -1,34 +1,15 @@
 #include "Biblioteca.h"
 #include "Data.h"
 
-ostream& operator<<(ostream& os, const Biblioteca& biblioteca)
-{
-	os << "Nom: " << biblioteca.getNom() << std::endl;
-	os << "Data d'inauguració: " << biblioteca.getDataInauguracio() << std::endl;
-	os << "Capacitat: " << biblioteca.getCapacitat() << std::endl;
-	os << "Quantitat de fitxes: " << biblioteca.getQtatFitxes() << std::endl;
-	os << "Fitxes:" << std::endl;
-	for (int i = 0; i < biblioteca.getQtatFitxes(); i++) {
-		os << "\t" << *(biblioteca.t[i]) << std::endl;
-	}
-	return os;
 
-}
 
 
 Biblioteca::Biblioteca(const char* nom, const int& capacitat, const Data& dataInauguracio) :
 	nom(NULL), dataInauguracio(dataInauguracio), capacitat(0), qtatFitxes(0), t(NULL)
 {
-	//Gestio del nom:
-	if (nom == NULL || strlen(nom) == 0) {
-		throw "El nom de la biblioteca és obligatori";
-	}
-	//Creem espai pel nom:
 	setNom(nom);
-
-	//Gestio de la capacitat:
 	setCapacitat(capacitat);
-	//Inicialitzem el vector de fitxes a null
+
 }
 
 //==================CONSTRUCTOR CÒPIA==================
@@ -43,12 +24,10 @@ Biblioteca::Biblioteca(const Biblioteca& biblioteca) :
 	catch (const char* ex) {
 		delete[] nom; //Alliberem el nom que ja hem copiat
 		nom = NULL;
-		throw ex; //Re-llançar l'excepció perquè el constructor de còpia també falli.
+		throw "Error de memòria en copiar biblioteca";
 	}
-	//TODO assegurar que si peta, no deixi la biblioteca en un estat inconsistent. Per exemple, si no es pot reservar memòria pel nom, no hauria de continuar intentant copiar les fitxes.
 	for (int i = 0; i < biblioteca.qtatFitxes; i++) {
 		try {
-
 			t[i] = new Fitxa(*(biblioteca.t[i])); //Cada fitxa és ara de la biblioteca, per tant, hem de crear una nova fitxa a partir de la fitxa original. Això és un procés de còpia profunda (deep copy).
 			//afegirFitxa(biblioteca.t[i]);
 			if (t[i] == NULL) {
@@ -62,20 +41,15 @@ Biblioteca::Biblioteca(const Biblioteca& biblioteca) :
 			}
 			delete[] t;
 			t = NULL;
-			qtatFitxes = 0;
 			delete[] nom;
 			nom = NULL;
-			throw ex; //Re-llançar l'excepció perquè el constructor de còpia també falli.
+			throw "Error de memòria en copiar biblioteca"; //Re-llançar l'excepció perquè el constructor de còpia també falli.
 		}
 	}
 	qtatFitxes = biblioteca.qtatFitxes;
 }
 
-//==================OPERADORS==================
-Biblioteca& Biblioteca::operator=(const Biblioteca& b)
-{
-	throw "No es permet l'assignació de biblioteques.";
-}
+
 
 //==================DESTRUCTOR==================
 Biblioteca::~Biblioteca()
@@ -86,8 +60,11 @@ Biblioteca::~Biblioteca()
 		delete t[i];
 	}
 	delete[] t;
+	// Opcional? però aconsellable:
 	nom = NULL;
 	t = NULL;
+	capacitat = 0;
+	qtatFitxes = 0;
 }
 
 
@@ -100,17 +77,25 @@ void Biblioteca::setNom(const char* nom)
 	if (nom == NULL || strlen(nom) == 0) {
 		throw "El nom de la biblioteca és obligatori";
 	}
+	if (this->nom != NULL && strlen(this->nom) == strlen(nom)) {
+		strcpy(this->nom, nom);
+	}
+	else {
 	// 2. Reservar espai en una variable auxiliar
 	char* nomAux = new char[strlen(nom) + 1];
 
 	// (Si 'new' fallés aquí, el mètode s'aturaria i 'this->nom' no s'hauria esborrat)
-
+	if (nomAux == NULL) {
+		throw "No hi ha memòria pel títol de la fitxa";
+	}
 	// 3. Copiar dades a l'auxiliar
 	strcpy(nomAux, nom);
 
 	// 4. Alliberar l'antic i reassignar
 	delete[] this->nom;
 	this->nom = nomAux;
+
+	}
 }
 
 void Biblioteca::setCapacitat(const int& capacitat)
@@ -148,11 +133,30 @@ void Biblioteca::setDataInauguracio(const Data& dataInauguracio)
 
 const char* Biblioteca::getNom() const { return nom; }
 const Data& Biblioteca::getDataInauguracio() const { return dataInauguracio; }
-int Biblioteca::getCapacitat() const { return capacitat; }
-int Biblioteca::getQtatFitxes() const { return qtatFitxes; }
+const int& Biblioteca::getCapacitat() const { return capacitat; }
+const int& Biblioteca::getQtatFitxes() const { return qtatFitxes; }
 const Fitxa** Biblioteca::getFitxes() const { return (const Fitxa**)t; }
 
 
+//==================OPERADORS==================
+Biblioteca& Biblioteca::operator=(const Biblioteca& b)
+{
+	throw "No es permet l'assignació de biblioteques.";
+}
+
+ostream& operator<<(ostream& os, const Biblioteca& biblioteca)
+{
+	os << "Nom: " << biblioteca.getNom() << std::endl;
+	os << "Data d'inauguració: " << biblioteca.getDataInauguracio() << std::endl;
+	os << "Capacitat: " << biblioteca.getCapacitat() << std::endl;
+	os << "Quantitat de fitxes: " << biblioteca.getQtatFitxes() << std::endl;
+	os << "Fitxes:" << std::endl;
+	for (int i = 0; i < biblioteca.getQtatFitxes(); i++) {
+		os << "\t" << *(biblioteca.t[i]) << std::endl;
+	}
+	return os;
+
+}
 
 
 //==================ALTRES MÈTODES==================
@@ -213,10 +217,7 @@ Fitxa& Biblioteca::cercarFitxa(const char* referencia)
 	throw "No s'ha trobat cap fitxa amb la referencia indicada";
 }
 
-void Biblioteca::eliminarFitxa(const char* referencia)
-{
 
-}
 
 void Biblioteca::actualitzarFitxa(const Fitxa* fitxa)
 {
