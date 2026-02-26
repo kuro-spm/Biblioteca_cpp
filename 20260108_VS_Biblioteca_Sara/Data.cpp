@@ -1,11 +1,7 @@
 #include "Data.h"
 #include <time.h>
 
-ostream& operator<<(ostream& os, const Data& data)
-{
-	os << (short)data.day << "/" << (short)data.month << "/" << data.year;
-	return os;
-}
+
 
 
 
@@ -39,6 +35,8 @@ int Data::getYear() const { return year; }
 
 //==================SETTERS==================
 
+//Es podrien haver fet els setters amb alies(&) per estalviar una mica de memòria en comptes de passar els paràmetres per valor...
+
 bool Data::setDay(int day)
 {
 	if (verificarDiaMesAny(day, this->month, this->year)) {
@@ -65,33 +63,50 @@ bool Data::setYear(int year)
 
 //==================METODES==================
 
-
-
-
+int Data::diesDelMes(const int& mes, const int& any) {
+	const int dies[] = { 31, 28, 31,30,31,30,31,31,30,31,30,31 };
+	if (mes == 2 && esAnyTraspas(any)) return 29;
+	return dies[mes - 1];
+}
 
 /// <summary>
 /// Augmenti d1 amb els dies indicats a X, que pot ser negatiu
 /// </summary>
 /// <param name="days"></param>
 /// <returns></returns>
-Data Data::sumar_dies(int days)
+Data Data::sumar_dies(int d)
 {
-	//TODO: Millorar eficiencia
-	if (days < 0) return *this; //TODO.
-
-	for (int i = 0; i < days; ++i) {
-		if (verificarDiaMesAny(day + 1, month, year)) {
-			day++;
+	if (d == 0) return *this;
+	while (d > 0) {
+		int diesMes = diesDelMes(month, year); // mes i any de la data actual
+		int diesQuedenDinsMes = diesMes - day;    // dies que queden del mes
+		if (d < diesQuedenDinsMes) {    // x conté els dies que queden per sumar
+			day += d; d = 0; return *this;   // ja hem sumat tots els dies
+		}
+		d -= (diesQuedenDinsMes + 1);    // x el disminuïm amb els dies del mes
+		// +1 per què ens ubiquem en el dia 1 del mes següent
+		day = 1;    // Ens situem en el dia 1 del mes següent
+		month++;     // Mes següent
+		if (month == 13) {
+			month = 1; year++;
+		}
+	}
+	while (d < 0) {
+		int diesMesAnterior;
+		if (month == 1) {
+			diesMesAnterior = 31;     // Desembre sempre te 31 dies
 		}
 		else {
-			day = 1;
-			if (verificarDiaMesAny(day, month + 1, year)) {
-				month++;
-			}
-			else {
-				month = 1;
-				year++;
-			}
+			diesMesAnterior = diesDelMes(month - 1, year); // mes-1 i any de la data actual
+		}
+		if (-d < day) {    // x conté els dies que queden per restar
+			day += d; d = 0;  return *this;
+		}
+		d += day;
+		day = diesMesAnterior;
+		month--;
+		if (month == 0) {
+			month = 12; year--;
 		}
 	}
 	return *this;
@@ -122,7 +137,15 @@ bool Data::esAnyTraspas(int year)
 * //No cal mentre no tinguem dades dinamiques
 Data::Data(const Data& Data)
 {
+	//Només cal si tenim dades dinàmiques
 }
+
+//Destructor
+Data::~Data()
+{
+	//Només cal si tenim dades dinàmiques
+}
+
 */
 
 //==================OPERADORS==================
@@ -163,15 +186,8 @@ bool Data::operator<(const Data& Data)
 	return false;
 }
 
-bool Data::operator<=(const Data& Data)
-{
-	/*if (this->year < Data.year)return true;
-	if (this->month < Data.month)return true;
-	if (this->day < Data.day)return true;
-	if (this->day == Data.day && this->month == Data.month && this->year == this->year)return true;
-	return false;*/
+bool Data::operator<=(const Data& Data) {
 	return (*this == Data || *this < Data);
-
 }
 
 bool Data::operator>(const Data& Data)
@@ -198,15 +214,15 @@ bool Data::operator>=(const Data& Data)
 
 // Pre-increment: ++d
 Data& Data::operator++() {
-	*this = sumar_dies(1);
-	return *this;
+	*this = sumar_dies(1); //S'incrementa 'objecte actual
+	return *this; //i es retorna l'objecte actual.
 }
 
 // Post-increment: d++
 Data Data::operator++(int) {
-	Data copia(*this); 
-	++(*this);        
-	return copia;      
+	Data copia(*this); //Es fa una copia
+	++(*this); //S'incrementa l'obecte actual
+	return copia; //Es retorna la còpia.
 }
 // Pre-decrement: --d
 Data& Data::operator--() {
@@ -216,9 +232,9 @@ Data& Data::operator--() {
 
 // Post-decrement: d--
 Data Data::operator--(int) {
-	Data copia(*this); 
-	--(*this);        
-	return copia;      
+	Data copia(*this);
+	--(*this);
+	return copia;
 }
 
 Data Data::operator+(int x)
@@ -231,26 +247,29 @@ Data Data::operator-(int x)
 	return Data(this->sumar_dies(-x));
 }
 
-Data &Data::operator+=(int x)
+Data& Data::operator+=(int x)
 {
-	*this = this->sumar_dies(x); 
+	*this = this->sumar_dies(x);
 	return *this;
 }
 
-Data &Data::operator-=(int x)
+Data& Data::operator-=(int x)
 {
 	*this = this->sumar_dies(-x);
 	return *this;
 }
 
-//Data::~Data()
-//{
-//	//Només cal si tenim dades dinàmiques
-//}
-
 Data operator+(const int& dies, Data& data)
 {
 	return data + dies;
+}
+
+//A Data.h: 	friend ostream& operator<<(ostream& os, const Data& data);
+
+ostream& operator<<(ostream& os, const Data& data)
+{
+	os << (short)data.day << "/" << (short)data.month << "/" << data.year;
+	return os;
 }
 
 

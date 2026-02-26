@@ -26,6 +26,7 @@ public:
 	bool setMonth(int month);
 	bool setYear(int year);
 
+
 	//Constructor de copia
 	//Data(const Data& Data); //No cal mentre no tinguem dades dinamiques
 	//Operador d'assignacio
@@ -51,6 +52,7 @@ public:
 	//Destructor:
 	//~Data(); //Només cal si tenim dades dinàmiques
 
+	int diesDelMes(const int& mes, const int& any);
 	Data sumar_dies(int days);
 	static bool verificarDiaMesAny(int day, int month, int year);
 	static bool esAnyTraspas(int year);
