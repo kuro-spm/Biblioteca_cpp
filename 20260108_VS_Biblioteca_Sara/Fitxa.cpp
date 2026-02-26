@@ -103,10 +103,9 @@ Fitxa::Fitxa(const Fitxa& fitxa) : titol(NULL), esDeixa(NULL), dataCreacio(NULL)
 
 //==================DESTRUCTOR==================
 Fitxa::~Fitxa() {
-#ifdef DEBUG
-	std::cout << "\t...Alliberant memoria de la fitxa " << this->referencia << "..." << std::endl;
-#endif // DEBUG
-
+	#ifdef DEBUG
+		std::cout << "\t...Alliberant memoria de la fitxa " << this->referencia << "..." << std::endl;
+	#endif // DEBUG
 
 	delete[] titol;
 	delete esDeixa;
