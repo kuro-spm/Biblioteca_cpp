@@ -3,7 +3,6 @@
 
 #include "Fitxa.h"
 #include "Data.h"
-#include <memory>
 
 class Biblioteca
 {
@@ -23,9 +22,11 @@ public:
 
 	// Regla dels Cinc (Move Semantics)
 	Biblioteca(const Biblioteca& biblioteca);            // Constructor de còpia
-	Biblioteca(Biblioteca&& biblioteca) noexcept;         // Constructor de MOVIMENT
-	Biblioteca& operator=(const Biblioteca& b);           // Operador d'assignació
-	Biblioteca& operator=(Biblioteca&& b) noexcept;      // Assignació de MOVIMENT
+	Biblioteca& operator=(const Biblioteca& b);  
+	
+	////Per treballar amb punters intel·ligents, afegim el constructor de MOVIMENT i l'assignació de MOVIMENT. Aquests permeten transferir la propietat dels recursos d'un objecte a un altre sense necessitat de copiar les dades, millorant l'eficiència en situacions on la còpia seria costosa.
+	//Biblioteca(Biblioteca&& biblioteca) noexcept;         // Constructor de MOVIMENT
+	//Biblioteca& operator=(Biblioteca&& b) noexcept;      // Assignació de MOVIMENT
 	
 	//Destructor
 	//Amb punters normals, necessitem un destructor per alliberar la memòria que hem reservat dinàmicament. Amb punters intel·ligents (smart pointers), el destructor no és estrictament necessari, ja que els smart pointers s'encarreguen de gestionar la memòria automàticament. No obstant això, si tenim altres recursos a gestionar (com fitxers o connexions de xarxa), podríem necessitar un destructor per alliberar aquests recursos. En aquest cas, com només tenim punters intel·ligents, el destructor pot ser buit o fins i tot no ser declarat explícitament, ja que el compilador generarà un destructor per defecte que farà el treball adequadament.

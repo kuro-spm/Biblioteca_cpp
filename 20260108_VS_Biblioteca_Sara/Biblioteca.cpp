@@ -1,9 +1,6 @@
 #include "Biblioteca.h"
 #include "Data.h"
 
-
-
-
 Biblioteca::Biblioteca(const char* nom, const int& capacitat, const Data& dataInauguracio) :
 	nom(NULL), dataInauguracio(dataInauguracio), capacitat(0), qtatFitxes(0), t(NULL)
 {
