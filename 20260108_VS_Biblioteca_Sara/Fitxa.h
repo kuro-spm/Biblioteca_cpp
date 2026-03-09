@@ -20,8 +20,6 @@ private: //Per defecte ja és private. No caldria.
 	Data dataAlta;
 	Data* dataCreacio;
 
-
-
 public:
 	Fitxa();
 	Fitxa(const char* referencia, const char* titol);

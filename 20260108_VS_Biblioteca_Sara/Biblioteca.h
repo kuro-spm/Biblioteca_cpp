@@ -3,6 +3,7 @@
 
 #include "Fitxa.h"
 #include "Data.h"
+#include <memory>
 
 class Biblioteca
 {
@@ -10,7 +11,7 @@ class Biblioteca
 
 
 private:
-	char *nom;
+	char* nom;
 	Data dataInauguracio;
 	int capacitat;
 	int qtatFitxes;
@@ -20,14 +21,15 @@ public:
 	//Constructors:
 	Biblioteca(const char* nom, const int& capacitat, const Data& dataInauguracio);
 
-	//Constructor de copia
-	Biblioteca(const Biblioteca& biblioteca); //Copia (imprescindible <=> dades dinàmiques)
-
-	//Operadors
-	Biblioteca& operator=(const Biblioteca& b); //Asignació (imprescindible <=> dades dinàmiques)
-
+	// Regla dels Cinc (Move Semantics)
+	Biblioteca(const Biblioteca& biblioteca);            // Constructor de còpia
+	Biblioteca(Biblioteca&& biblioteca) noexcept;         // Constructor de MOVIMENT
+	Biblioteca& operator=(const Biblioteca& b);           // Operador d'assignació
+	Biblioteca& operator=(Biblioteca&& b) noexcept;      // Assignació de MOVIMENT
+	
 	//Destructor
-	~Biblioteca(); //Destructor (imprescindible <=> dades dinàmiques)
+	//Amb punters normals, necessitem un destructor per alliberar la memòria que hem reservat dinàmicament. Amb punters intel·ligents (smart pointers), el destructor no és estrictament necessari, ja que els smart pointers s'encarreguen de gestionar la memòria automàticament. No obstant això, si tenim altres recursos a gestionar (com fitxers o connexions de xarxa), podríem necessitar un destructor per alliberar aquests recursos. En aquest cas, com només tenim punters intel·ligents, el destructor pot ser buit o fins i tot no ser declarat explícitament, ja que el compilador generarà un destructor per defecte que farà el treball adequadament.
+	~Biblioteca(); 
 
 	//Getters i setters
 	//Setters

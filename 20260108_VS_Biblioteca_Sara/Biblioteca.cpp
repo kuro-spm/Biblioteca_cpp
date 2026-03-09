@@ -50,6 +50,19 @@ Biblioteca::Biblioteca(const Biblioteca& biblioteca) :
 }
 
 
+////==========AFEGITS PER TREBALLAR AMB PUNTERS INTEL·LIGÈNTS: MOVIMENT==========
+//// Constructor de MOVIMENT
+//Biblioteca::Biblioteca(Biblioteca&& biblioteca) noexcept
+//{
+//}
+//
+//// Assignació de MOVIMENT
+//Biblioteca& Biblioteca::operator=(Biblioteca&& b) noexcept
+//{
+//	// TODO: Insertar una instrucción "return" aquí
+//}
+
+
 
 //==================DESTRUCTOR==================
 Biblioteca::~Biblioteca()
@@ -143,6 +156,8 @@ Biblioteca& Biblioteca::operator=(const Biblioteca& b)
 {
 	throw "No es permet l'assignació de biblioteques.";
 }
+
+
 
 ostream& operator<<(ostream& os, const Biblioteca& biblioteca)
 {
