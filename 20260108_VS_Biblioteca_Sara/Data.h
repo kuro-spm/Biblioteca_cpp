@@ -31,6 +31,15 @@ public:
 	//Data(const Data& Data); //No cal mentre no tinguem dades dinamiques
 	//Operador d'assignacio
 	//Data& operator = (const Data& Data);//No cal mentre no tinguem dades dinamiques
+	
+	////Evitar que s'utilitzin operadors de moviment
+	//Data(Data&& Data) = delete; //Constructor de MOVIMENT
+	//Data& operator=(Data&& Data) = delete; //Assignació de MOVIMENT
+	////Com que hem posat els de moviment hem de definir que els de copia tinguin comportament default, ja que el compilador no els generarà automàticament.
+	//Data(const Data& Data) = default; //Constructor de còpia
+	//Data& operator=(const Data& Data) = default; //Assignació de còpia
+	
+	
 	//Operadors de comparacio
 	bool operator == (const Data& Data);
 	bool operator != (const Data& Data);

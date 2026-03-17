@@ -15,10 +15,11 @@ class Fitxa
 
 private: //Per defecte ja és private. No caldria.
 	char referencia[REF_LEN + 1];
-	char* titol;
-	bool* esDeixa;
+	
+	unique_ptr<char[]> titol; //char* titol;
+	unique_ptr<bool> esDeixa; //bool* esDeixa;
 	Data dataAlta;
-	Data* dataCreacio;
+	unique_ptr<Data> dataCreacio; //Data* dataCreacio;
 
 public:
 	Fitxa();
@@ -29,6 +30,11 @@ public:
 	Fitxa(const Fitxa& fitxa);
 	//Operador d'assignacio
 	Fitxa& operator = (const Fitxa& fitxa);
+
+	//Moviment: No s'han de poder utilitzar els operadors de moviment, ja que no té sentit moure una fitxa. Per tant, els eliminem explícitament.
+	Fitxa(Fitxa&& fitxa) = delete; //Constructor de MOVIMENT
+	Fitxa& operator=(Fitxa&& fitxa) = delete; //Assignació de MOVIMENT
+
 	//Operadors de comparacio
 	bool operator == (const Fitxa& fitxa);
 	bool operator != (const Fitxa& fitxa);
@@ -37,7 +43,7 @@ public:
 	bool operator >= (const Fitxa& fitxa);
 	bool operator > (const Fitxa& fitxa);
 	//Destructor:
-	~Fitxa();
+	~Fitxa() = default;
 
 	void setReferencia(const char* referencia);
 	void setTitol(const char* titol);
