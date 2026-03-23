@@ -126,11 +126,15 @@
     <ClInclude Include="Biblioteca.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Fitxa.h" />
+    <ClInclude Include="FitxaLlibre.h" />
+    <ClInclude Include="FitxaRevista.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Biblioteca.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Fitxa.cpp" />
+    <ClCompile Include="FitxaLlibre.cpp" />
+    <ClCompile Include="FitxaRevista.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
