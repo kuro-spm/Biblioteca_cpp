@@ -1,10 +1,6 @@
 #include "Data.h"
 #include <time.h>
 
-
-
-
-
 Data::Data()
 {
 	//Ha d'iniciar-se amb la data actual

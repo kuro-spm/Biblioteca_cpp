@@ -8,12 +8,16 @@
 class FitxaLlibre :
     public Fitxa
 {
+    friend ostream& operator<<(ostream& os, FitxaLlibre& fitxa);
+
     char* editorial; //no obligatori
 	char isbn[ISBN_LEN + 1]; //no obligatori
 
 public:
     FitxaLlibre();
+    FitxaLlibre(const char* referencia, const char* titol);
     FitxaLlibre(const char* referencia, const char* titol, const char* editorial, const char* isbn);
+
     FitxaLlibre(const FitxaLlibre& fitxa);
 
     FitxaLlibre& operator = (const FitxaLlibre& fitxa);
@@ -28,5 +32,8 @@ public:
 	void visualitzar();
 
 
+
 };
+
+
 

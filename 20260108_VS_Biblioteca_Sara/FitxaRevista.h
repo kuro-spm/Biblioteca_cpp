@@ -3,5 +3,6 @@
 class FitxaRevista :
     public Fitxa
 {
+
 };
 

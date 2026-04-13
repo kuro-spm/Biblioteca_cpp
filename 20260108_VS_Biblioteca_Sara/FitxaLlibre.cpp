@@ -13,7 +13,8 @@ FitxaLlibre::FitxaLlibre(const char* referencia, const char* titol, const char* 
 	setIsbn(isbn);
 }
 
-FitxaLlibre::FitxaLlibre(const FitxaLlibre& fitxa): Fitxa(fitxa), editorial(NULL)
+FitxaLlibre::FitxaLlibre(const FitxaLlibre& fitxa): 
+	Fitxa(fitxa), editorial(NULL)
 {
 	setEditorial(fitxa.editorial);
 	setIsbn(fitxa.isbn);
@@ -21,14 +22,19 @@ FitxaLlibre::FitxaLlibre(const FitxaLlibre& fitxa): Fitxa(fitxa), editorial(NULL
 
 FitxaLlibre& FitxaLlibre::operator=(const FitxaLlibre& fitxa)
 {
+	//Evitar autoassignació
+	if (this == &fitxa) return; 
+
 	Fitxa::operator=(fitxa);
 	setEditorial(fitxa.editorial);
 	setIsbn(fitxa.isbn);
 	return *this;
 }
 
+
 FitxaLlibre::~FitxaLlibre()
 {
+	Fitxa::~Fitxa();
 	delete[] editorial;
 	editorial = NULL;
 }
@@ -97,5 +103,11 @@ void FitxaLlibre::visualitzar()
 	Fitxa::visualitzar();
 	cout << "Editorial: " << (editorial != NULL ? editorial : "No especificada") << endl;
 	cout << "ISBN: " << (strlen(isbn) > 0 ? isbn : "No especificat") << endl;
+}
+
+ostream& operator<<(ostream& os, FitxaLlibre& fitxa) {
+	os << (Fitxa) fitxa << endl;
+	os << "Editorial: " << (fitxa.editorial == NULL ? "---" : fitxa.editorial) << endl;
+	os << "ISBN: " << fitxa.isbn << endl;
 }
 
